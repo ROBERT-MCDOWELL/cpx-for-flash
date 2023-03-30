@@ -1,0 +1,90 @@
+
+<html>
+    <head>
+     <META NAME='ROBOTS' CONTENT='NOINDEX, NOFOLLOW'>
+     <!-- meta http-equiv="origin-trial" content="AnctnSWfpzxvmwvLXilMaQxJS+t+lCtOjI7DJPHKWURUrT+AVAstU/USUudTa/1xo0x1nnc1UOxhSxc7XnsRBg0AAAB/eyJvcmlnaW4iOiJodHRwczovL3d3dy5jb29sbWF0aGdhbWVzLmNvbTo0NDMiLCJmZWF0dXJlIjoiVW5yZXN0cmljdGVkU2hhcmVkQXJyYXlCdWZmZXIiLCJleHBpcnkiOjE2Mzk1MjYzOTksImlzU3ViZG9tYWluIjp0cnVlfQ==" / -->
+     <script src="pp.js"></script>
+     </head>
+     <body>
+       <div id='gameContent'></div>
+       <script type='text/javascript'>
+         function cmgGameEvent(cm_game_evt, cm_game_lvl) {
+           gDate = new Date();
+           console.log('cheerpx.html v34: cmgGameEvent called from emulation object in iFrame. Time: '+gDate +' Timestamp: '+gDate.getTime() );
+           //Post a message to the parent
+       console.log('cheerpx.html v34: Posting cmgGameEvent message to parent. Event='+cm_game_evt + '. Level='+cm_game_lvl)
+       if(typeof cm_game_lvl !== 'undefined' && cm_game_lvl !== '') {
+         window.parent.postMessage({'cmg_game_emu': getUrlParameter('f'), 'cm_game_evt' : cm_game_evt, 'cm_game_lvl': cm_game_lvl}, '*');
+       } else {
+         window.parent.postMessage({'cmg_game_emu': getUrlParameter('f'), 'cm_game_evt' : cm_game_evt, 'cm_game_lvl': ''}, '*');
+       }
+         }
+           function cheerpxCmgCallback() {
+               console.log("CMG cheerpx game loading debug "+new Date());
+           }
+           function getUrlParameter(name) {
+             name = name.replace(/[\[]/, '\[').replace(/[\]]/, '\]');
+             var regex = new RegExp('[\?&]' + name + '=([^&#]*)');
+             var results = regex.exec(location.search);
+             return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+           };
+             game_element = document.getElementById('gameContent');
+             var swf_1_game_url_relative = getUrlParameter('f');
+               var width = getUrlParameter('w');
+           var height = getUrlParameter('h');
+           if(width == null) { width = 800;}
+           if(height == null) {height = 600};
+         console.log("Testing");		
+           //swf_1_game_url = "/sites/cmatgame/files/games/" + swf_1_game_url_relative;
+           swf_1_game_url = "https://www.coolmath-games.com/sites/cmatgame/files/games/" + swf_1_game_url_relative;
+           //swf_1_game_url = "https://cheerpx-prod.coolmathgames.com/games/" + swf_1_game_url_relative;
+           swf_1_game_movie_param = swf_1_game_url_relative;
+           isMSIE = /*@cc_on!@*/false;
+           obj = (isMSIE) ? createIeObject(swf_1_game_url) : document.createElement('object');
+           if (!isMSIE) {
+            obj.setAttribute('type', 'application/x-shockwave-flash');
+            obj.setAttribute('data', swf_1_game_url);
+           }
+           //Add attributes to <object>
+           obj.setAttribute('id', 'swfObjID');
+           obj.setAttribute('width', width);
+           obj.setAttribute('height', height);
+                   var param = document.createElement('param');
+           param.setAttribute('name','allowScriptAccess');
+           param.setAttribute('value','always');
+           obj.appendChild(param);
+           var param3 = document.createElement('param');
+           param3.setAttribute('name','movie');
+           param3.setAttribute('value', swf_1_game_movie_param);
+           obj.appendChild(param3);
+           var param4 = document.createElement('param');
+           param4.setAttribute('name','menu');
+           param4.setAttribute('value','false');
+           obj.appendChild(param4);
+           var param5 = document.createElement('param');
+           param5.setAttribute('name','quality');
+           param5.setAttribute('value','high');
+           obj.appendChild(param5);
+           var param6 = document.createElement('param');
+           param6.setAttribute('name','wmode');
+           param6.setAttribute('value','direct');
+           obj.appendChild(param6);
+           var param7 = document.createElement('param');
+           param7.setAttribute('name','scale');
+           param7.setAttribute('value','exactfit');
+           obj.appendChild(param7);
+           console.log('Cheerpx: Loading swf object into gameContent element from '+swf_1_game_url);
+           game_element.parentNode.replaceChild(obj, game_element);
+   if(typeof cheerpxCmgCallback == "function") {
+       console.log("ppReadyCallback can invoke cheerpxCmgCallback function");
+   } else {
+       console.log("ppReadyCallback maynot be able to invoke cheerpxCmgCallback function");
+   }
+   ppInit({disableHiDPI: true,disableAudio:false,javaScriptCallMode:"sync", readyCallback:"cheerpxCmgCallback" });
+           console.log("Cheerpx: called ppInit v34 from cheerpx.coolmathgames.com");
+       
+         </script>
+     </body>
+   </html>
+   
+   
